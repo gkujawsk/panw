@@ -1,4 +1,5 @@
 FROM fedora:latest
+WORKDIR /app
 RUN yum update -y
 RUN yum install -y pip
 RUN pip install django==3.0.2
