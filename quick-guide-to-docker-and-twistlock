@@ -92,5 +92,7 @@ docker push gkujawsk/backend-fedora:2
 
 # na innym zdokerozywanym hoscie
 docker run -p 8080:8080 gkujawsk/backend-fedora:2
+# http://docker-xx:8080/
+
 
 
