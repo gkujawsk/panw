@@ -10,7 +10,7 @@ services:
             - frontend
             - pma
     frontend:
-        build: ./frontend
+        image: docker-01:5000/panw_frontend:1
         restart: always
         # ports:
         #     - 4200:4200
