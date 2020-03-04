@@ -20,7 +20,9 @@ services:
     backend:
         image: docker-01:5000/panw_backend:1
         restart: always
-        replicas: 4
+        deploy:
+            mode: replicated
+            replicas: 2
         volumes:
             - ./backend:/app
         depends_on: 
