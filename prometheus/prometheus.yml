@@ -20,7 +20,7 @@ scrape_configs:
 
   - job_name: 'twistlock'
     static_configs:
-    - targets: ['https://docker-01:8083']
+    - targets: ['docker-01:8083']
     metrics_path: /api/v1/metrics
     basic_auth:
       username: 'admin'
