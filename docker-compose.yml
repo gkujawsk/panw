@@ -33,7 +33,7 @@ services:
             - MYSQL_PORT=${MYSQL_PORT}
             - MYSQL_HOST=${MYSQL_HOST}
     db:
-        build: ./backend
+        build: ./db
         restart: always
         command: --default-authentication-plugin=mysql_native_password
         # ports:
@@ -44,7 +44,7 @@ services:
             - MYSQL_USER=${MYSQL_USER}
             - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     pma:
-        image: phpmyadmin/phpmyadmin
+        build: ./pma
         restart: always
         # ports:
             # - 8081:80

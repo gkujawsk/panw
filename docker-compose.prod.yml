@@ -1,7 +1,7 @@
 version: '3'
 services:
     nginx:
-        build: ./nginx
+        image: docker-01:5000/panw_nginx:1
         restart: always
         ports:
             - 80:80
@@ -18,7 +18,7 @@ services:
             - /app/node_modules
             - ./frontend:/app
     backend:
-        build: ./backend
+        image: docker-01:5000/panw_backend:1
         restart: always
         volumes:
             - ./backend:/app
@@ -33,7 +33,7 @@ services:
             - MYSQL_PORT=${MYSQL_PORT}
             - MYSQL_HOST=${MYSQL_HOST}
     db:
-        image: gkujawsk/db-4ses:1
+        image: docker-01:5000/panw_db:1
         restart: always
         command: --default-authentication-plugin=mysql_native_password
         # ports:
@@ -44,7 +44,7 @@ services:
             - MYSQL_USER=${MYSQL_USER}
             - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     pma:
-        image: phpmyadmin/phpmyadmin
+        image: docker-01:5000/panw_pma:1
         restart: always
         # ports:
             # - 8081:80

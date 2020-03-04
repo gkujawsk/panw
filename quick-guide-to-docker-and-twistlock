@@ -125,3 +125,9 @@ docker run -d   --restart=always  \
 tar -zxvf prisma_cloud_compute_edition_19_11_512.tar.gz
 sudo ./twistlock.sh --help
 sudo ./twistlock.sh -s onebox
+
+
+for i in nginx pma backend db frontend; do \
+ docker commit panw_${i}_1 docker-01:5000/panw_${i}:1; \
+ docker push panw_${i}_1 docker-01:5000/panw_${i}:1; \
+done
