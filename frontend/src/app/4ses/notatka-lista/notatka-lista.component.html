@@ -1,0 +1,10 @@
+<div *ngIf="count != 0" style="display: flex; flex-direction: row;">
+    <notatka *ngFor="let notatka of notatki" 
+    [firstName]="notatka.firstName" 
+    [lastName]="notatka.lastName"
+    [url]="notatka.url"
+    [email]="notatka.email"></notatka>
+</div>
+<div *ngIf="count == 0">
+    Brak notatek
+</div>
