@@ -1,8 +1,17 @@
-.active {
+a.active {
     color: gold;
 }
 
 menu-spacer {
     display: inline-block;
     width:10px;
+}
+a {
+    padding: 10px;
+    color: silver;
+    transition: all 200ms;
+}
+
+a:hover {
+    color: white;
 }

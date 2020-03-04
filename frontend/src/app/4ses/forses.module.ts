@@ -9,10 +9,11 @@ import {MatButtonModule} from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
 
 
-import {MatListModule} from '@angular/material/list'; 
+import {MatListModule} from '@angular/material/list';
+import { EgzaminyComponent } from './egzaminy/egzaminy.component'; 
 
 @NgModule({
-  declarations: [NotatkaComponent, NotatkaListaComponent],
+  declarations: [NotatkaComponent, NotatkaListaComponent, EgzaminyComponent],
   imports: [
     CommonModule,
     MatCardModule,
@@ -22,7 +23,8 @@ import {MatListModule} from '@angular/material/list';
     MatListModule,
   ],
   exports: [
-    NotatkaListaComponent
+    NotatkaListaComponent,
+    EgzaminyComponent,
   ]
 })
 export class ForSesModule { }
