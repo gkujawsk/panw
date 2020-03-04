@@ -57,14 +57,15 @@ ps
 exit
 docker ps
 
-#the backend
+#example with ports 
+
 yum update -y
-yum install -y pip
-pip install django==3.0.2
+yum install -y pip procps net-tools
+pip install django
 django-admin startproject app
 python3 manage.py migrate
-python3 manage.py runserver 0.0.0.0:8080
 sed -i 's/ALLOWED_HOSTS = \[\]/ALLOWED_HOSTS = \[\"*"\]/' app/settings.py
+python3 manage.py runserver 0.0.0.0:8080
 exit
 docker commit relaxed_dubinsky test
 docker run -p 8080:8080 -it test
@@ -77,6 +78,7 @@ FROM fedora:latest
 RUN yum update -y
 RUN yum install -y pip
 RUN pip install django==3.0.2
+RUN rm -fr /var/cache/dnf/*
 RUN django-admin startproject app
 RUN python3 /app/manage.py migrate
 RUN sed -i 's/ALLOWED_HOSTS = \[\]/ALLOWED_HOSTS = \[\"*"\]/' /app/app/settings.py
