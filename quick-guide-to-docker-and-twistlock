@@ -1,0 +1,96 @@
+-1) Potrzebne dwie maszyny. Dla ustalenia uwagi docker-01 i docker-02. Ubuntu Server 19.10 bedzie
+jak znalazl, ale dystrybucja nie ma wiekszego znaczenia. Dockera ani Twistlock nie brzydza sie zadna
+dystrybucja. Zaktualizowac apt-get update && apt-get upgrade && apt-get autoremove. Dla wygody
+ustawic .ssh/authorized_keys na obu, chyba ze komus placa za ilosc uderzen w klawiature. Snapshot!
+
+0) Instlacja dockera community edition na docker-01 i docker-02. Najwygodniej przez apt-get lub yum. Mozna tez https://get.docker.com.
+Po zakonczeniu instalacji warto dodac swojego uzytkownika do grupy docker. Jak sie tego nie zrobi, to potem trzeba prefixowac wywolania
+dockera sudo. Po tej operacji zalogowac sie i wylogowac, zeby dodadanie do grupy zadzialalo. 
+
+curl https://get.docker.com | sh -
+sudo usermod -aG docker gkujawsk
+
+1) https://hub.docker.com - zalozyc konto, przyda sie do zabawy z zaglowaniem obrazami
+Poszukac obrazu hello-world, centos, ubuntu, debian, alpine
+
+2)
+docker run hello-world
+docker ps
+docker ps -a 
+docker image ls
+docker image rm hello-world
+docker image pull
+docker image ls
+docker run --rm hello-world
+docker ps -a
+
+docker pull fedora:latest
+docker image ls fedora:latest
+
+docker run fedora:latest
+docker ps
+docker ps -a
+docker run -it fedora:latest
+#z drugiej konsoli
+docker ps
+#z konsoli w ktorej uruchomiony jest fedora:latest
+touch test
+exit
+docker ps -a
+docker run -it fedora:latest
+touch test2
+exit
+docker ps -a
+docker start funny_name
+docker attach funny_name
+ls test*
+exit
+docker ps -a
+
+#detach from interactive mode w/o container dying
+docker exec -it funny_name /bin/bash
+CTRL+P CTRL+Q
+
+#exec additional process within the container, not touching the orginal process
+docker exec -it funny_name /bin/bash
+ps
+exit
+docker ps
+
+#the backend
+yum update -y
+yum install -y pip
+pip install django==3.0.2
+django-admin startproject app
+python3 manage.py migrate
+python3 manage.py runserver 0.0.0.0:8080
+sed -i 's/ALLOWED_HOSTS = \[\]/ALLOWED_HOSTS = \[\"*"\]/' app/settings.py
+exit
+docker commit relaxed_dubinsky test
+docker run -p 8080:8080 -it test
+cd /app
+python3 manage.py runserver 0.0.0.0:8080
+# przegladarka do http://docker-01:8080 http://docker-01:8080/admin
+
+#Dockerfile dla backendu
+FROM fedora:latest
+RUN yum update -y
+RUN yum install -y pip
+RUN pip install django==3.0.2
+RUN django-admin startproject app
+RUN python3 /app/manage.py migrate
+RUN sed -i 's/ALLOWED_HOSTS = \[\]/ALLOWED_HOSTS = \[\"*"\]/' /app/app/settings.py
+CMD ["python3", "manage.py", "runserver", "0.0.0.0:8080"]
+
+docker build . 
+# dodac dodatkowa komende RUN touch ogrysajakcebula
+docker build . 
+# tylko warsty ponizej zmiany zostana dobudowane
+
+docker tag IDENTYFIKATOR OBRAZU gkujawsk/backend-fedora:2
+docker push gkujawsk/backend-fedora:2
+
+# na innym zdokerozywanym hoscie
+docker run -p 8080:8080 gkujawsk/backend-fedora:2
+
+
