@@ -1,4 +1,5 @@
 FROM fedora:latest
+LABEL app 4ses
 WORKDIR /app
 RUN yum -y update
 RUN yum -y install pip gcc gcc-c++ make mysql-devel python-devel

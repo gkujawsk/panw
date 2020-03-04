@@ -33,7 +33,7 @@ services:
             - MYSQL_PORT=${MYSQL_PORT}
             - MYSQL_HOST=${MYSQL_HOST}
     db:
-        build: ./backend
+        image: gkujawsk/db-4ses:1
         restart: always
         command: --default-authentication-plugin=mysql_native_password
         # ports:
