@@ -4,7 +4,7 @@ services:
         build: ./nginx
         restart: always
         ports:
-            - 80:80
+            - 81:80
         depends_on: 
             - backend
             - frontend
@@ -14,11 +14,18 @@ services:
         restart: always
         ports:
             - 4200:4200
+        volumes:
+            - /app/node_modules
+            - ./frontend:/app
     backend:
         build: ./backend
         restart: always
-        ports:
-            - 8080:8080
+        volumes:
+            - ./backend:/app
+        depends_on: 
+            - db
+        # ports:
+        #     - 8080:8080
         environment: 
             - MYSQL_DATABASE=${MYSQL_DATABASE}
             - MYSQL_USER=${MYSQL_USER}
@@ -29,8 +36,8 @@ services:
         image: mysql:latest
         restart: always
         command: --default-authentication-plugin=mysql_native_password
-        ports:
-            - 3306:3306
+        # ports:
+        #     - 3306:3306
         environment: 
             - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
             - MYSQL_DATABASE=${MYSQL_DATABASE}
