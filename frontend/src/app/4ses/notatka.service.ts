@@ -11,6 +11,6 @@ export class NotatkaService {
   ) { }
 
   getList() {
-    return this.http.get("http://localhost:81/api/notatka/");
+    return this.http.get("http://localhost/api/notatka/");
   }
 }
